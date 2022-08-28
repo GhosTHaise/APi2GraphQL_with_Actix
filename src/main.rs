@@ -1,18 +1,6 @@
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
-use serde::Serialize;
 
-#[derive(Serialize)]
-struct Informations {
-    name : String,
-    last_name : String,
-    hobbies : Vec<Hobies>,
-    age : u8
-}
-#[derive(Serialize)]
-struct Hobies {
-    id : u8,
-    name : String
-}
+mod modules;
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -24,19 +12,24 @@ async fn developper() -> impl Responder {
 }
 
 #[get("/aboutMe")]
-async fn aboutme() -> web::Json<Informations> {
-    let fitiavana = Informations {
-        name : "Fitiavana".to_string(),
-        last_name : "Sambatra".to_string(),
-        hobbies : vec![Hobies{
+async fn aboutme() -> web::Json<modules::aboutMe::Informations> {
+    let fitiavana = modules::aboutMe::Informations::new(
+        "Fitiavana".to_string(),
+        "Sambatra".to_string(),
+        vec![modules::aboutMe::Hobies{
             id : 1,
             name : "videogames".to_string()
-        },Hobies{
-            id : 1,
+        },modules::aboutMe::Hobies{
+            id : 2,
             name : "coding".to_string()
-        }],
-        age : 19
-    };
+        },
+        modules::aboutMe::Hobies{
+            id : 3,
+            name : "playing chess".to_string()
+        }
+        ],
+        19
+    );
    web::Json(fitiavana)
 }
 
