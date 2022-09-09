@@ -40,12 +40,24 @@ async fn echo(req_body: String) -> impl Responder {
 
 async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Hey there!")
-}
+} 
 
 /* #[get("temperature")]
 async fn current_temperature() -> impl Responder {
     web::Json(json!({ "temperature": 42.3 })?)
 } */
+async fn index() -> impl Responder {
+    "Hello world"
+}
+struct AppState{
+    app_name : String
+}
+
+#[get("/state")]
+async fn state(data : web::Data<AppState>) -> String {
+    let app_name = &data.app_name;
+    format!("Hello {app_name}!")
+}
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -55,6 +67,13 @@ async fn main() -> std::io::Result<()> {
             .service(echo)
             .service(developper)
             .service(aboutme)
+            .service(
+                web::scope("/app").route("/index.html",web::get().to(index))
+            )
+            .app_data(web::Data::new(AppState{
+                app_name : String::from("Actix web")
+            }))
+            .service(state)
             .route("/hey", web::get().to(manual_hello))
     })
     .bind(("127.0.0.1", 8080))?
