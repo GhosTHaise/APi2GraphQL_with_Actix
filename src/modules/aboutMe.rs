@@ -1,7 +1,5 @@
 use serde::Serialize;
 
-
-
 #[derive(Serialize)]
 pub struct Informations {
     name : String,
