@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "learn_actix",
+    "orm_diesel"
+]
