@@ -11,6 +11,7 @@ fn main() {
     let title = "API withb rust";
     let url = "https://GhosTHaise@github.com";
     let created_at = "23/09/2022:16:17:01";
-    let project = create_post(&connection,title,url,created_at);
-    println!("Saved project : {}, with id : {} successfully",project.title,project.id);
+    /* let project = create_post(&connection,title,url,created_at);
+    println!("Saved project : {}, with id : {} successfully",project.title,project.id); */
+    create_post(&connection);
 }
