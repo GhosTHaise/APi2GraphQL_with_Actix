@@ -1,6 +1,7 @@
 extern crate orm_diesel;
 extern crate diesel;
 
+
 use self::orm_diesel::*;
 
 fn main() {
@@ -13,5 +14,6 @@ fn main() {
     let created_at = "23/09/2022:16:17:01";
     /* let project = create_post(&connection,title,url,created_at);
     println!("Saved project : {}, with id : {} successfully",project.title,project.id); */
-    create_post(&connection);
+    let data = new_project(&title,&url,&created_at);
+    create_post(&connection,&data);
 }

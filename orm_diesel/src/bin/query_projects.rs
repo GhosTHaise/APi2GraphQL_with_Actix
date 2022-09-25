@@ -10,7 +10,6 @@ fn main() {
 
     let connection =  establish_connection();
     let result = projects
-        .filter(id.eq(1))
         .load::<Project>(&connection)
         .expect("Error loading students");
 

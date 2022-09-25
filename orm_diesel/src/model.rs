@@ -1,6 +1,7 @@
 use super::schema::projects;
-use serde::{Deserialize};
+use serde::{Deserialize,Serialize};
 use diesel::{Insertable, Queryable};
+
 #[derive(Queryable)]
 pub struct Project {
     pub id: i32,
@@ -9,7 +10,7 @@ pub struct Project {
     pub created_at: String
 }
 
-#[derive(Deserialize,Insertable)]
+#[derive(Deserialize,Serialize,Insertable)]
 #[table_name = "projects"]
 pub struct NewProject<'a> {
     pub title: &'a str,
