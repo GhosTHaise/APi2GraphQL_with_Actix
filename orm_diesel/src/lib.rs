@@ -12,7 +12,8 @@ use dotenv::dotenv;
 use std::env;
 use schema::projects::dsl::*;
 pub struct OrmDiesel{
-    pub connection : MysqlConnection
+    pub connection : MysqlConnection,
+    pub nom_table : String
 }
 pub fn establish_connection() -> MysqlConnection {
     dotenv().ok();
@@ -24,7 +25,8 @@ pub fn establish_connection() -> MysqlConnection {
 impl OrmDiesel{
     pub fn new(_model : String) -> OrmDiesel{
         OrmDiesel{
-            connection : establish_connection()
+            connection : establish_connection(),
+            nom_table: _model,
         }
     }
       
