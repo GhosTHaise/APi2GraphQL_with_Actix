@@ -18,7 +18,7 @@ pub struct TaskIdentifier{
 }
 
 #[get("/project/list")]
-pub async fn get_project() -> Json<orm_diesel::model::Project>{
+pub async fn get_project() -> Json<Vec<orm_diesel::model::Project>>{
         let data  = orm_diesel::query::Project::Project::select();
         Json(data)
 }
