@@ -6,11 +6,12 @@ extern crate serde;
 
 pub mod model;
 pub mod schema;
-
+pub mod query;
 use diesel::{prelude::*, insert_into};
 use dotenv::dotenv;
 use std::env;
 use schema::projects::dsl::*;
+
 pub struct OrmDiesel{
     pub connection : MysqlConnection,
     pub nom_table : String

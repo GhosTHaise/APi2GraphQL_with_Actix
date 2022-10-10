@@ -5,7 +5,8 @@ mod api;
 mod repository;
 
 use api::task::{
-    get_task
+    get_task,
+    get_project
 };
 
 #[actix_web::main]
@@ -23,6 +24,7 @@ async fn main() -> std::io::Result<()> {
             //learn actix tutorial
             .service(get_task)
             //end
+            .service(get_project)
             .service(modules::old_task::hello)
             .service(modules::old_task::echo)
             .service(modules::old_task::developper)

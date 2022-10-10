@@ -2,6 +2,7 @@ use super::schema::projects;
 use serde::{Deserialize,Serialize};
 use diesel::{Insertable, Queryable};
 
+#[derive(Serialize,Deserialize,Debug)]
 #[derive(Queryable)]
 pub struct Project {
     pub id: i32,
