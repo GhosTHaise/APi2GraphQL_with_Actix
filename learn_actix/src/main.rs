@@ -1,4 +1,5 @@
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, middleware::Logger};
+use actix_cors::Cors;
+use actix_web::{get, post, web,http, App, HttpResponse, HttpServer, Responder, middleware::Logger};
 
 mod modules;
 mod api;
@@ -19,8 +20,18 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         let logger = Logger::default();
         println!("Service starts at : http://127.0.0.1:{}",8080);
+        let cors = Cors::default()
+        .allowed_origin("http://localhost:3000")
+        .allowed_methods(vec!["GET","POST"])
+        .allowed_headers(vec![http::header::AUTHORIZATION,http::header::ACCEPT,http::header::ORIGIN,http::header::ACCESS_CONTROL_ALLOW_ORIGIN])
+        .allowed_header(http::header::CONTENT_TYPE)
+        .max_age(3600);
+
+        //app
         App::new()
             .wrap(logger)
+            //middleware cors
+            .wrap(cors)
             //learn actix tutorial
             .service(get_task)
             //end
