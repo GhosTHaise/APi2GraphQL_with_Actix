@@ -6,6 +6,7 @@ use actix_web::{
     web::Path,
     web::Json,
     web::Data,
+    web::Form,
     HttpResponse,
     http::{header::ContentType,StatusCode}
 };
@@ -19,6 +20,13 @@ pub struct TaskIdentifier{
     task_global_id : String
 }
 
+#[derive(Serialize,Deserialize)]
+pub struct FormulaireProject{
+    title : String,
+    url : String,
+    created_at : String
+}
+
 #[get("/project/list")]
 pub async fn get_project() -> Json<Vec<orm_diesel::model::Project>>{
         let data  = orm_diesel::query::Project::Project::select();
@@ -28,4 +36,10 @@ pub async fn get_project() -> Json<Vec<orm_diesel::model::Project>>{
 pub async fn get_task(task_indentifier : Path<TaskIdentifier>) -> Json<TaskIdentifier> {
     thread::sleep(Duration::from_secs(5));
     Json(task_indentifier.into_inner())
+}
+#[post("/project/new")]
+pub async fn insert_project<'a>(form : Form<FormulaireProject>) -> HttpResponse {
+
+    orm_diesel::query::Project::Project::insert(&*form.title, &*form.url, &*form.created_at);
+    HttpResponse::Ok().body(format!("data : {}",form.url))
 }

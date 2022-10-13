@@ -14,7 +14,10 @@ pub struct Project {
 #[derive(Deserialize,Serialize,Insertable)]
 #[table_name = "projects"]
 pub struct NewProject<'a> {
+    #[serde(borrow)]
     pub title: &'a str,
+    #[serde(borrow)]
     pub url: &'a str,
+    #[serde(borrow)]
     pub created_at: &'a str,
 }

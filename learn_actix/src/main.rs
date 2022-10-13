@@ -7,7 +7,8 @@ mod repository;
 
 use api::task::{
     get_task,
-    get_project
+    get_project,
+    insert_project
 };
 
 #[actix_web::main]
@@ -34,6 +35,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(cors)
             //learn actix tutorial
             .service(get_task)
+            .service(insert_project)
             //end
             .service(get_project)
             .service(modules::old_task::hello)

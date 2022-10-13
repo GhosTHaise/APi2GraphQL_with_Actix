@@ -23,7 +23,7 @@ pub fn establish_connection() -> MysqlConnection {
     MysqlConnection::establish(&database_url).unwrap_or_else(|_| panic!("Error connecting"))
 }
 
-impl OrmDiesel{
+impl OrmDiesel {
     pub fn new(_model : String) -> OrmDiesel{
         OrmDiesel{
             connection : establish_connection(),

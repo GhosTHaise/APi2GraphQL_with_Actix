@@ -5,6 +5,7 @@ use serde::{Serialize,Deserialize};
 use crate::*;
 
 
+use crate::model::NewProject;
 use crate::schema::projects::dsl::*;
 use diesel::prelude::*;
 
@@ -12,6 +13,8 @@ use diesel::prelude::*;
 pub struct Project;
 
 use crate::schema::projects::dsl::*;
+
+
 
 impl Project{
     pub fn select() -> Vec<crate::model::Project> {
@@ -28,4 +31,14 @@ impl Project{
         );  
         result
     }
+    
+    pub fn insert(_title : &str,_url : &str,_created_at : &str) -> () {
+        let orm = OrmDiesel::new("Project".to_string());
+        let data = orm.new_project(
+            _title,
+            _url,
+            _created_at
+        );
+        orm.create_post(&data);
+    }   
 }
