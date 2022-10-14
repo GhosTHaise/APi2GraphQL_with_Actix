@@ -7,8 +7,9 @@ extern crate serde;
 pub mod model;
 pub mod schema;
 pub mod query;
-use diesel::{prelude::*, insert_into};
+use diesel::{prelude::*, insert_into, delete};
 use dotenv::dotenv;
+use model::Project;
 use std::env;
 use schema::projects::dsl::*;
 
@@ -42,6 +43,7 @@ impl OrmDiesel {
          */
         insert_into(projects).values(data).execute(&self.connection);
     }
+
     pub fn new_project<'a>(&self,_title : &'a str,_url : &'a str,_created_at : &'a str) -> model::NewProject<'a> {
         model::NewProject{
             title : _title,

@@ -41,4 +41,9 @@ impl Project{
         );
         orm.create_post(&data);
     }   
+    pub fn detele(id_project : String) -> () {
+        let connection = establish_connection();
+        let parsed_params : i32 = id_project.parse().unwrap();
+        delete(projects.filter(id.eq_all(parsed_params))).execute(&connection);
+    }
 }

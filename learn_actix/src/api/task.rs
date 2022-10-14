@@ -43,3 +43,10 @@ pub async fn insert_project<'a>(form : Form<FormulaireProject>) -> HttpResponse 
     orm_diesel::query::Project::Project::insert(&*form.title, &*form.url, &*form.created_at);
     HttpResponse::Ok().body(format!("data : {}",form.url))
 }
+
+#[get("/projects/remove/{id_project}")]
+pub async fn remove_project(project_info : Path<(String)>) -> HttpResponse {
+    let (id) = project_info.into_inner();
+    orm_diesel::query::Project::Project::detele(id);
+    HttpResponse::Ok().body("Remove project successfully")
+}
