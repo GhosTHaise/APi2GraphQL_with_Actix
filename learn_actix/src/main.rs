@@ -1,6 +1,6 @@
 use actix_cors::Cors;
 use actix_web::{get, post, web,http, App, HttpResponse, HttpServer, Responder, middleware::Logger};
-
+use actix_files::Files;
 mod modules;
 mod api;
 mod repository;
@@ -34,6 +34,8 @@ async fn main() -> std::io::Result<()> {
             .wrap(logger)
             //middleware cors
             .wrap(cors)
+            //load static file (js,css)
+            .service(Files::new("/assets","/home/randri/Documents/Dev/Rust/13 - Learn Actix/learn_actix/learn_actix/src/app/assets"))
             //learn actix tutorial
             .service(get_task)
             .service(insert_project)
