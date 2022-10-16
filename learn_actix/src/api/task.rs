@@ -13,7 +13,7 @@ use actix_web::{
 use orm_diesel;
 use serde::{Serialize,Deserialize};
 use derive_more::{Display};
-use std::thread;
+use std::{thread, fmt::format};
 use std::time::Duration;
 #[derive(Serialize,Deserialize)]
 pub struct TaskIdentifier{
@@ -49,4 +49,17 @@ pub async fn remove_project(project_info : Path<(String)>) -> HttpResponse {
     let (id) = project_info.into_inner();
     orm_diesel::query::Project::Project::detele(id);
     HttpResponse::Ok().body("Remove project successfully")
+}
+
+#[post("project/update/{id_project}")]
+pub async fn update_project(form : Form<FormulaireProject>,params : Path<(String)>) -> HttpResponse {
+    let (id ) = params.into_inner();
+    let update_id = id.parse().unwrap();
+    let uptade_project = orm_diesel::model::Project{
+        id : update_id,
+        title : String::from(&*form.title),
+        url : String::from(&*form.url),
+        created_at : String::from(&*form.created_at)
+    };
+    HttpResponse::Ok().body("Update project successfully")
 }

@@ -1,18 +1,15 @@
 
-use diesel::{self, update, connection};
+use diesel::{self, update};
 use serde::{Serialize,Deserialize};
 
 use crate::*;
 
-
-use crate::model::NewProject;
 use crate::schema::projects::dsl::*;
 use diesel::prelude::*;
 
 #[derive(Serialize,Deserialize)]
 pub struct Project;
 
-use crate::schema::projects::dsl::*;
 
 
 
@@ -45,12 +42,12 @@ impl Project{
     pub fn detele(id_project : String) -> () {
         let connection = establish_connection();
         let parsed_params : i32 = id_project.parse().unwrap();
-        delete(projects.filter(id.eq_all(parsed_params))).execute(&connection);
+        let _result = delete(projects.filter(id.eq_all(parsed_params))).execute(&connection);
     }
 
     pub fn update(change_project : crate::model::Project) -> () {
         let connection = establish_connection();
-        let result = update(projects.filter(id.eq(change_project.id)))
+        let _result = update(projects.filter(id.eq(change_project.id)))
             .set(
                 (title.eq_all(change_project.title),
                         url.eq_all(change_project.url),
