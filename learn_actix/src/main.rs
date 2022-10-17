@@ -9,7 +9,8 @@ use api::task::{
     get_task,
     get_project,
     insert_project,
-    remove_project
+    remove_project,
+    update_project
 };
 
 #[actix_web::main]
@@ -40,6 +41,7 @@ async fn main() -> std::io::Result<()> {
             .service(get_task)
             .service(insert_project)
             .service(remove_project)
+            .service(update_project)
             //end
             .service(get_project)
             .service(modules::old_task::hello)

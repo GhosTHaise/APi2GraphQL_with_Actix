@@ -2,18 +2,13 @@
 use actix_web::{
     get,
     post,
-    put,
     Responder,
-    error::ResponseError,
-    web::Path,
     web::{Json, self},
-    web::Data,
     HttpResponse,
-    http::{header::ContentType,StatusCode}
+    http::{StatusCode}
 };
 
-use serde::{Serialize,Deserialize};
-use derive_more::{Display};
+
 
 use super::aboutMe;
 

@@ -9,7 +9,6 @@ pub mod schema;
 pub mod query;
 use diesel::{prelude::*, insert_into, delete};
 use dotenv::dotenv;
-use model::Project;
 use std::env;
 use schema::projects::dsl::*;
 
