@@ -50,11 +50,12 @@ pub async fn remove_project(project_info : Path<String>) -> HttpResponse {
 pub async fn update_project(form : Form<FormulaireProject>,params : Path<String>) -> HttpResponse {
     let id  = params.into_inner();
     let update_id = id.parse().unwrap();
-    let _uptade_project = orm_diesel::model::Project{
+    let uptade_project = orm_diesel::model::Project{
         id : update_id,
         title : String::from(&*form.title),
         url : String::from(&*form.url),
         created_at : String::from(&*form.created_at)
     };
+    orm_diesel::query::Project::Project::update(uptade_project);
     HttpResponse::Ok().body(format!("Update project(id : {})successfully",id))
 }
